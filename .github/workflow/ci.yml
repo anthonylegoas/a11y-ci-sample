@@ -1,0 +1,15 @@
+name: ♿️ A11Y CI
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Lighthouse
+        run: npx lighthouse https://moving-motivators.cleverapps.io/
