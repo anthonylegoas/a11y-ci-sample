@@ -12,4 +12,4 @@ jobs:
 
     steps:
       - name: Lighthouse
-        run: npx lighthouse https://moving-motivators.cleverapps.io/
+        run: npx lighthouse https://moving-motivators.cleverapps.io/ --chrome-flags="--no-sandbox --headless --disable-gpu"
