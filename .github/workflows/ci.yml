@@ -1,6 +1,6 @@
 name: ♿️ A11Y CI
 
-on: [pull_request]
+on: [push]
 
 jobs:
   test:
