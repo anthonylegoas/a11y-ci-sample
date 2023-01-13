@@ -1,22 +1,27 @@
-name: ♿️ A11Y CI
+name: ♿️ A11Y CI with Lighthouse
 
 on: [push]
 
 jobs:
-  test:
+  Lighthouse-CLI:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         
       # Using the Lighthouse CLI Directly
-      - name: Lighthouse CLI
+      - name: Run Lighthouse CLI
         run: npx lighthouse https://moving-motivators.cleverapps.io/ --chrome-flags="--no-sandbox --headless --disable-gpu" --budget-path=.github/workflows/lighthouse-budget.json
+
+  Lighthouse-Action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
       # Using the Lighthouse GitHub Action
       # @see https://github.com/marketplace/actions/lighthouse-ci-action
-      - name: Lighthouse GitHub Action
+      - name: Run Lighthouse GitHub Action
         uses: treosh/lighthouse-ci-action@v9
         with:
           urls: |
