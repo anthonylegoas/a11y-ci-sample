@@ -10,6 +10,8 @@ jobs:
       matrix:
         node-version: [18.x]
 
+
     steps:
-      - name: Lighthouse
-        run: npx lighthouse https://moving-motivators.cleverapps.io/ --chrome-flags="--no-sandbox --headless --disable-gpu"
+      # Using the Lighthouse CLI Directly
+      - name: Lighthouse CLI
+        run: npx lighthouse https://moving-motivators.cleverapps.io/ --chrome-flags="--no-sandbox --headless --disable-gpu" --budget-path=lighthouse-budget.json
