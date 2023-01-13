@@ -1,0 +1,32 @@
+name: ♿️ A11Y CI
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      # Using the Lighthouse CLI Directly
+      - name: Lighthouse CLI
+        run: npx lighthouse https://moving-motivators.cleverapps.io/ --chrome-flags="--no-sandbox --headless --disable-gpu" --budget-path=.github/workflows/lighthouse-budget.json
+
+      # Using the Lighthouse GitHub Action
+      # @see https://github.com/marketplace/actions/lighthouse-ci-action
+      - name: Lighthouse GitHub Action
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          urls: |
+            https://moving-motivators.cleverapps.io/
+            https://moving-motivators.cleverapps.io/about
+          budgetPath: .github/workflows/lighthouse-budget.json # test performance budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
