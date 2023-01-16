@@ -9,12 +9,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Use Chrome Driver
+        uses: nanasess/setup-chromedriver@v1
+        with:
+          # Optional: do not specify to match Chrome's version
+          chromedriver-version: '108.0.5359.71'
+
       - name: Install Axe CLI
         run: npm install -g @axe-core/cli
         
       # Using the Axe Core CLI Directly
       - name: Run Axe CLI
-        run: axe https://moving-motivators.cleverapps.io/ --tags wcag2a
+        run: axe https://moving-motivators.cleverapps.io/ --chromedriver-path="/usr/local/bin/chromedriver" --tags wcag2a
 
 
 
