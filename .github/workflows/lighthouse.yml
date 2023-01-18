@@ -1,6 +1,14 @@
 name: ♿️ A11Y CI with Lighthouse
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      website:
+        required: true
+        type: string
+        description: Website to audit for a11y
+        options: 
+        - https://snowcamp.io/fr/
 
 jobs:
   Lighthouse-CLI:
@@ -11,7 +19,7 @@ jobs:
         
       # Using the Lighthouse CLI Directly
       - name: Run Lighthouse CLI
-        run: npx lighthouse https://moving-motivators.cleverapps.io/ --chrome-flags="--no-sandbox --headless --disable-gpu" --budget-path=.github/workflows/lighthouse-budget.json
+        run: npx lighthouse ${{ inputs.website }} --chrome-flags="--no-sandbox --headless --disable-gpu" --budget-path=.github/workflows/lighthouse-budget.json
 
   Lighthouse-Action:
     runs-on: ubuntu-latest
@@ -25,8 +33,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v9
         with:
           urls: |
-            https://moving-motivators.cleverapps.io/
-            https://moving-motivators.cleverapps.io/about
+            ${{ inputs.website }} 
           budgetPath: .github/workflows/lighthouse-budget.json # test performance budgets
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
