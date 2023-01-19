@@ -7,8 +7,6 @@ on:
         required: true
         type: string
         description: Website to audit for a11y
-        options: 
-        - https://snowcamp.io/fr/
 
 jobs:
   Lighthouse-CLI:
