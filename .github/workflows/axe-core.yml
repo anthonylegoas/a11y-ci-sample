@@ -1,6 +1,18 @@
 name: ♿️ A11Y CI with Axe Core
 
-on: [workflow_dispatch]
+on:
+  pull_request:
+    paths:
+      - '**/.github/workflows/axe-core.yml'
+  workflow_dispatch:
+    inputs:
+      website:
+        required: true
+        type: string
+        description: Website to audit
+
+env:
+  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://www.npmjs.com/' }}
 
 jobs:
   Axe-CLI:
@@ -12,15 +24,31 @@ jobs:
       - name: Use Chrome Driver
         uses: nanasess/setup-chromedriver@v1
         with:
-          # Optional: do not specify to match Chrome's version
           chromedriver-version: '108.0.5359.71'
 
       - name: Install Axe CLI
         run: npm install -g @axe-core/cli
         
-      # Using the Axe Core CLI Directly
       - name: Run Axe CLI
-        run: axe https://moving-motivators.cleverapps.io/ --chromedriver-path="/usr/local/bin/chromedriver" --tags wcag2a
+        id: axe
+        uses: mathiasvr/command-output@v1
+        with:
+          run: axe $WEBSITE_TO_AUDIT --chromedriver-path="/usr/local/bin/chromedriver" --exit
+
+      - name: Comment pull request
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
+          header: axe-core-comment
+          recreate: true
+          message: |
+            ## ♿️ Axe report
+            Audited website : ${{ env.WEBSITE_TO_AUDIT }}
+            ```
+            ${{ steps.axe.outputs.stdout }}
+            ${{ steps.axe.outputs.stderr }}
+            ```
+            *This report has been generated using [@axe-core/cli](https://github.com/dequelabs/axe-core-npm/blob/develop/packages/cli).*
 
 
 
