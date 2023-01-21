@@ -1,0 +1,20 @@
+name: ♿️ A11Y CI with Hint
+
+on:
+  workflow_dispatch:
+    inputs:
+      website:
+        required: true
+        type: string
+        description: Website to audit for a11y
+
+jobs:
+  Hint-CLI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      # Using the Hint CLI Directly
+      - name: Run Hint CLI
+        run: npx hint ${{ inputs.website }}
