@@ -1,25 +1,23 @@
 name: ♿️ A11Y CI with Lighthouse
 
 on:
+  pull_request:
+    paths:
+      - '**/.github/workflows/lighthouse.yml'
+      - '**/.github/workflows/lighthouse-comment.js'
+      - '**/.github/workflows/lighthouse-budget.json'
   workflow_dispatch:
     inputs:
       website:
         required: true
         type: string
-        description: Website to audit for a11y
+        description: Website to audit
+
+env:
+  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://www.npmjs.com/' }}
 
 jobs:
   Lighthouse-CLI:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        
-      # Using the Lighthouse CLI Directly
-      - name: Run Lighthouse CLI
-        run: npx lighthouse ${{ inputs.website }} --chrome-flags="--no-sandbox --headless --disable-gpu" --budget-path=.github/workflows/lighthouse-budget.json
-
-  Lighthouse-Action:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,9 +27,35 @@ jobs:
       # @see https://github.com/marketplace/actions/lighthouse-ci-action
       - name: Run Lighthouse GitHub Action
         uses: treosh/lighthouse-ci-action@v9
+        id: lighthouse_audit
         with:
           urls: |
-            ${{ inputs.website }} 
+            $WEBSITE_TO_AUDIT
           budgetPath: .github/workflows/lighthouse-budget.json # test performance budgets
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+
+      - name: Format lighthouse score
+        if: always()
+        id: format_lighthouse_score
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const lighthouseCommentMaker = require('./.github/workflows/lighthouse-comment.js');
+
+            const lighthouseOutputs = {
+              manifest: ${{ steps.lighthouse_audit.outputs.manifest }},
+              links: ${{ steps.lighthouse_audit.outputs.links }}
+            };
+
+            const comment = lighthouseCommentMaker({ lighthouseOutputs });
+            core.setOutput("comment", comment);
+
+      - name: Add Lighthouse stats as comment
+        if: always()
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
+          header: lighthouse-comment
+          recreate: true
+          message: ${{ steps.format_lighthouse_score.outputs.comment }}
