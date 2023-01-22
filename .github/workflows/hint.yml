@@ -6,7 +6,10 @@ on:
       website:
         required: true
         type: string
-        description: Website to audit for a11y
+        description: Website to audit
+
+env:
+  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://www.npmjs.com/' }}
 
 jobs:
   Hint-CLI:
@@ -14,7 +17,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
-      # Using the Hint CLI Directly
-      - name: Run Hint CLI
-        run: npx hint ${{ inputs.website }}
+
+      - name: Install Hint CI
+        run: npm install -g hint
+
+      - name: Run Pa11y CLI
+        id: hint
+        uses: mathiasvr/command-output@v1
+        with:
+          run: hint $WEBSITE_TO_AUDIT
+
+      - name: Comment pull request
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: always()
+        with:
+          GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
+          header: hint-comment
+          recreate: true
+          message: |
+            ## ♿️ Hint report for ${{ env.WEBSITE_TO_AUDIT }}
+            This report has been generated using [Hint](https://github.com/webhintio/hint/).
+            ```
+            ${{ steps.hint.outputs.stdout }}
+            ${{ steps.hint.outputs.stderr }}
+            ```
