@@ -1,0 +1,9 @@
+{
+    "defaults": {
+      "timeout": 10000,
+      "standard": "WCAG2AA",
+      "chromeLaunchConfig": {
+        "args": ["--no-sandbox"]
+        }
+    }
+  }

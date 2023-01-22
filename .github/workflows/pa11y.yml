@@ -1,12 +1,19 @@
 name: ♿️ A11Y CI with Pa11y
 
 on:
+  pull_request:
+    paths:
+      - '**/.github/workflows/pa11y.yml'
+      - '**/.pa11yci'
   workflow_dispatch:
     inputs:
       website:
         required: true
         type: string
-        description: Website to audit for a11y
+        description: Website to audit
+
+env:
+  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://www.npmjs.com/' }}
 
 jobs:
   Pa11y-CLI:
@@ -14,7 +21,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
-      # Using the Pa11y CLI Directly
+
+      - name: Install Pa11y CI
+        run: npm install -g pa11y-ci
+
       - name: Run Pa11y CLI
-        run: npx pa11y-ci ${{ inputs.website }}
+        id: pa11y
+        uses: mathiasvr/command-output@v1
+        with:
+          run: pa11y-ci $WEBSITE_TO_AUDIT -c ./.pa11yci
+
+      - name: Comment pull request
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: always()
+        with:
+          GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
+          header: pa11y-comment
+          recreate: true
+          message: |
+            ## ♿️ Pa11y report
+            Audited website : ${{ env.WEBSITE_TO_AUDIT }}
+            ```
+            ${{ steps.pa11y.outputs.stdout }}
+            ${{ steps.pa11y.outputs.stderr }}
+            ```
+            *This report has been generated using [pa11y-ci](https://github.com/pa11y/pa11y-ci).*
