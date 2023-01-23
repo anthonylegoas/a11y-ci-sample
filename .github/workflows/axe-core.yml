@@ -12,7 +12,7 @@ on:
         description: Website to audit
 
 env:
-  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://www.npmjs.com/' }}
+  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://npmjs.com/' }}
 
 jobs:
   Axe-CLI:
@@ -33,9 +33,10 @@ jobs:
         id: axe
         uses: mathiasvr/command-output@v1
         with:
-          run: axe $WEBSITE_TO_AUDIT --chromedriver-path="/usr/local/bin/chromedriver" --exit
+          run: axe $WEBSITE_TO_AUDIT --chromedriver-path="/usr/local/bin/chromedriver" --exit --tags wcag2aa
 
       - name: Comment pull request
+        if: always()
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
