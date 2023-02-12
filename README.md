@@ -18,3 +18,7 @@ All workflows works as follows, with 3 main steps :
 - Twitter: [@anthony_legoas](https://twitter.com/anthony_legoas)
 - Github: [@anthonylegoas](https://github.com/anthonylegoas)
 - LinkedIn: [@anthonylegoas](https://linkedin.com/in/anthonylegoas)
+
+## Show your support
+
+Give a ⭐️ if you like this project!
