@@ -2,7 +2,7 @@
 
 This repository includes samples of accessibility testing in continuous integration pipelines.
 It uses GitHub workflows to demonstrate the use of several tools :
-- Lighthouse
+- [Lighthouse CLI](https://github.com/GoogleChrome/lighthouse#using-the-node-cli)
 - Axe Core
 - PA11Y
 
