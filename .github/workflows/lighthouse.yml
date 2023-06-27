@@ -14,7 +14,7 @@ on:
         description: Website to audit
 
 env:
-  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://breizhcamp.org/' }}
+  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://www.breizhcamp.org/' }}
 
 jobs:
   Lighthouse-CLI:
