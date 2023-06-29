@@ -33,7 +33,7 @@ jobs:
         id: axe
         uses: mathiasvr/command-output@v1
         with:
-          run: axe $WEBSITE_TO_AUDIT --chromedriver-path="/usr/local/bin/chromedriver" --exit --tags wcag2aaa
+          run: axe $WEBSITE_TO_AUDIT --chromedriver-path="/usr/local/bin/chromedriver" --exit --tags wcag22aa
 
       - name: Comment pull request
         if: always()
