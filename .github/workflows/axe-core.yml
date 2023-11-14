@@ -27,7 +27,7 @@ jobs:
           chromedriver-version: '114.0.5735.90'
 
       - name: Install Axe CLI
-        run: npm install -g @axe-core/cli
+        run: npm install -g @axe-core/cli@4.7.3
         
       - name: Run Axe CLI
         id: axe
