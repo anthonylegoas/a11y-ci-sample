@@ -22,12 +22,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Use Chrome Driver
-        uses: nanasess/setup-chromedriver@v1
-        with:
-          chromedriver-version: '114.0.5735.90'
+        uses: browser-actions/setup-chrome@v1
+        run: chrome --version
 
       - name: Install Axe CLI
-        run: npm install -g @axe-core/cli@4.6.0
+        run: npm install -g @axe-core
         
       - name: Run Axe CLI
         id: axe
