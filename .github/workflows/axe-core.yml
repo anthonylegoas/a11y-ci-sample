@@ -23,6 +23,8 @@ jobs:
 
       - name: Use Chrome Driver
         uses: logikal-io/install-chrome@v1
+        with:
+          version: 121.0.6129.0
 
       - name: Install Axe CLI
         run: npm install -g @axe-core/cli
