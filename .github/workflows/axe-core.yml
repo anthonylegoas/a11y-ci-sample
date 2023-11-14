@@ -25,7 +25,7 @@ jobs:
         uses: browser-actions/setup-chrome@v1
         id: setup-chrome
         
-      - run: echo ${{ steps.setup-chrome.outputs.chrome-version }} ${{ steps.setup-chrome.outputs.chrome-path }} --version
+      - run: echo ${{ steps.setup-chrome.outputs.chrome-version }} ${{ steps.setup-chrome.outputs.chromedriver-path }} --version
 
       - name: Install Axe CLI
         run: npm install -g @axe-core/cli
