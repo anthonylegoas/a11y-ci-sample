@@ -23,6 +23,11 @@ jobs:
 
       - name: Use Chrome Driver
         uses: browser-actions/setup-chrome@v1
+        id: setup-chrome
+        
+      - run: |
+        echo Installed chromium version: ${{ steps.setup-chrome.outputs.chrome-version }}
+        ${{ steps.setup-chrome.outputs.chrome-path }} --version
 
       - name: Install Axe CLI
         run: npm install -g @axe-core/cli
