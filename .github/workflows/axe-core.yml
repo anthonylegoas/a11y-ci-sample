@@ -12,7 +12,7 @@ on:
         description: Website to audit
 
 env:
-  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://npmjs.com/' }}
+  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://devfesttoulouse.fr' }}
 
 jobs:
   Axe-CLI:
@@ -33,7 +33,7 @@ jobs:
         id: axe
         uses: mathiasvr/command-output@v1
         with:
-          run: axe $WEBSITE_TO_AUDIT --chromedriver-path="/usr/local/bin/chromedriver" --exit --tags wcag2aa
+          run: axe $WEBSITE_TO_AUDIT --chromedriver-path="/usr/local/bin/chromedriver" --exit --tags wcag2aaa
 
       - name: Comment pull request
         if: always()
