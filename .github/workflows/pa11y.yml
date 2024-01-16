@@ -13,7 +13,7 @@ on:
         description: Website to audit
 
 env:
-  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://devfesttoulouse.fr/' }}
+  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://www.cmb.fr/reseau-bancaire-cooperatif/web/devenir-client-3' }}
 
 jobs:
   Pa11y-CLI:
