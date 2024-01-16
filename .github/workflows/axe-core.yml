@@ -12,7 +12,7 @@ on:
         description: Website to audit
 
 env:
-  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://www.cmb.fr/reseau-bancaire-cooperatif/web/devenir-client-3' }}
+  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://www.cmb.fr/reseau-bancaire-cooperatif/web/vous-accompagner' }}
 
 jobs:
   Axe-CLI:
