@@ -12,7 +12,7 @@ on:
         description: Website to audit
 
 env:
-  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://pro.cmb.fr/web/devenir-client' }}
+  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://www.arkeaultimchallengebrest.com/fr' }}
 
 jobs:
   Axe-CLI:
