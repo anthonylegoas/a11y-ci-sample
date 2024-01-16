@@ -13,7 +13,7 @@ on:
         description: Website to audit
 
 env:
-  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://npmjs.com/' }}
+  WEBSITE_TO_AUDIT: ${{ inputs.website || 'https://www.cmb.fr/reseau-bancaire-cooperatif/web/vous-accompagner' }}
 
 jobs:
   Pa11y-CLI:
