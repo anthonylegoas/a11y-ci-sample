@@ -13,11 +13,8 @@ All workflows works as follows, with 3 main steps :
 
 ## Author
 
-👤 **Anthony Le Goas**
+👤 **ATTOUMI DRISS**
 
-- Twitter: [@anthony_legoas](https://twitter.com/anthony_legoas)
-- Github: [@anthonylegoas](https://github.com/anthonylegoas)
-- LinkedIn: [@anthonylegoas](https://linkedin.com/in/anthonylegoas)
 
 ## Show your support
 
