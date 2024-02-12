@@ -11,11 +11,3 @@ All workflows works as follows, with 3 main steps :
 2. Run the tool to audit a specified website
 3. Add the audit results to the current pull request
 
-## Author
-
-👤 **ATTOUMI DRISS**
-
-
-## Show your support
-
-Give a ⭐️ if you like this project!
